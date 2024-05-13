@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Form</title>
+    <head>
+      <meta charset="utf-8" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous"
+      />
+    </head>
+    <style>
+      .form-inline {
+        display: flex;
+        /* align-items: center; */
+        margin-bottom: 10px;
+      }
+      .form-inline label {
+        margin-right: 10px;
+        display: block;
+      }
+      .form-inline input[type="text"],
+      .form-inline input[type="radio"],
+      .form-inline select {
+        margin-right: 10px;
+        flex: 1;
+        width: 50%;
+      }
+      .form-inline button {
+        margin-left: auto;
+      }
+      .form-check-inline {
+        display: inline-flex;
+      }
+      .form-field {
+        margin-bottom: 10px;
+      }
+      .form-field label {
+        display: inline-block;
+        width: 100px;
+      }
+      .form-field input,
+      .form-field select {
+        width: 50%;
+      }
+      .listInvestment input {
+        width: 100%;
+      }
+      .form-control {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <hr style="width: 100%; border-top: 10px solid #000000" />
+      <h4>1. APPLICANT/ANNUITANT INFORMATION</h4>
+      <br/>
+      <form action= '' method="POST">
+        {% csrf_token %}
+
+        {% with customer=context.0 accountInfo=context.1 financialInfo=context.2 %}
+           
+        
+
+        <div class="fisrSection">
+          <div class="row">
+            <div class="col-lg-4 form-inline">
+              <label style="font-weight: bold">{{ accountInfo.type_account.label }}</label>
+              {{ accountInfo.type_account }}
+            </div>
+            <div class="col-lg-4 form-inline">
+              <label>{{ accountInfo.account_number.label }}</label>
+              {{ accountInfo.account_number }}
+            </div>
+            <div class="col-lg-4 form-inline">
+              <label>{{ customer.sin_number.label }}</label>
+              {{ customer.sin_number }}
+            </div>
+          </div>
+          <hr/>
+
+
+          <div class="row">
+            <div class="col-lg-2 form-inline">
+              <label>{{ customer.gender.label }}</label>
+              {{ customer.gender }}
+            </div>
+            <div class="col-lg-3 form-inline">
+              <label>{{ customer.last_name.label }}</label>
+              {{ customer.last_name }}
+            </div>
+            <div class="col-lg-3 form-inline">
+              <label>{{ customer.first_name.label }}</label>
+              {{ customer.first_name }}
+            </div>
+            <div class="col-lg-3 form-inline">
+              <label>{{ customer.initials.label }}</label>
+              {{ customer.initials }}
+            </div>
+          </div>
+        </div>
+         <div class="secondSection">
+          <div class="row">
+            <hr style="width: 100%; border-top: 10px solid #000000" />
+            <h4>2. FINANCIAL INFORMATION AND INVESTMENT EXPERIENCE</h4>
+            <h6>
+              Include information on you, your Co-Applicant(s) and your
+              spouse(s). For non-personal accounts, include information on the
+              company or organization
+            </h6>
+            
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6">{{ financialInfo.gross.label }}</label>
+              {{ financialInfo.gross }}
+            </div>
+
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6">{{ financialInfo.net_worth.label }}</label>
+              {{ financialInfo.net_worth }}
+            </div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6">{{ financialInfo.fixed_assets.label }}</label>
+              {{ financialInfo.fixed_assets }}
+              <span
+                >(the value of all your fixed assets including real estate,
+                securities, less all of your debts including mortgages.)</span
+              >
+            </div>
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6"
+                >{{ financialInfo.liquid_assets.label }}</label
+              >
+              {{ financialInfo.liquid_assets }}
+              <span>
+                (bank accounts, T-Bills, and other assets that can be readily
+                converted to cash without risk of loss or penalty)</span
+              >
+            </div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6"
+                >{{ financialInfo.coApplicant_investment_knowledge.label }}</label
+              >
+              {{ financialInfo.coApplicant_investment_knowledge }}
+            </div>
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6"
+                >{{ financialInfo.applicant_invest_knowledge.label }}</label
+              >
+              {{ financialInfo.applicant_invest_knowledge }}
+            </div>                      
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-lg-4 form-inline">
+              <label class="col-lg-6">{{ financialInfo.risk_tolerance.label }}</label>
+              {{ financialInfo.risk_tolerance }}
+            </div>
+            <div class="col-lg-4 form-inline">
+              <label class="col-lg-6">{{ financialInfo.net_worth.label }}</label>
+              {{ financialInfo.net_worth }}
+            </div>
+            <div class="col-lg-4 form-inline">
+              <label class="col-lg-6">{{ financialInfo.time_horizon.label }}</label>
+              {{ financialInfo.time_horizon }}
+            </div>
+          </div>
+          <hr/>
+
+
+          <div class="row">
+            <span class="col-lg-12" style="margin: 20px;">
+                i) List investment objectives:
+            </span>
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6">{{ financialInfo.liquidity.label_tag }}</label>
+              {{ financialInfo.liquidity }}
+              {{ financialInfo.liquidity.errors }}
+            </div>
+            <div class="col-lg-6 form-inline">
+              <label class="col-lg-6">{{ financialInfo.safety.label_tag }}</label>
+              {{ financialInfo.safety }}
+              {{ financialInfo.safety.errors }}
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6  form-inline">
+                <label class="col-lg-6">{{ financialInfo.income.label_tag }}</label>
+            {{ financialInfo.income }}
+                {{ financialInfo.income.errors }}
+              </div>
+              <div class="col-lg-6 form-inline">
+                <label class="col-lg-6"
+                  >{{ financialInfo.long_term_growth.label_tag }}</label
+                >
+                {{ financialInfo.long_term_growth }}
+                {{ financialInfo.long_term_growth.errors }}
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 form-inline">
+                    <label class="col-lg-6"
+                      >{{ financialInfo.short_term_growth.label_tag }}</label
+                    >
+                    {{ financialInfo.short_term_growth }}
+                    {{ financialInfo.short_term_growth.errors }}
+                  </div>
+                  <div class="col-lg-6 form-inline">
+                    <label class="col-lg-6">{{ financialInfo.speculation.label_tag }}</label>
+                    {{ financialInfo.speculation }}
+                    {{ financialInfo.speculation.errors }}
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 form-inline">
+                    <label class="col-lg-6">{{ financialInfo.inflation_hedging.label_tag }}</label>
+                  
+                  {{ financialInfo.inflation_hedging }}
+                  {{ financialInfo.inflation_hedging.errors }}
+                </div>
+                
+               
+          {% if form.errors %}
+          <ul>
+            {% for field in form %} {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %} {% endfor %}
+          </ul>
+          {% endif %}
+          <div class="row col-lg-10">
+            <button class="btn btn-info"  type="submit">Submit</button>
+          </div>
+        </div>
+        {% endwith %}
+      </form>
+    </div>
+  </body>
+  
+</html>

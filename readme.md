@@ -12,7 +12,7 @@ Before you begin, make sure you have the following installed on your system:
 
 **#Install requirements:**
 
-1. First upgrade your Python to the latest version. So, head over to python.org/download and download the latest version. 
+1. First upgrade your Python to the latest version. So, head over to python.org/download and download the latest version.
 
 You can check your python version: in terminal window type
 
@@ -20,43 +20,40 @@ You can check your python version: in terminal window type
 
 1. Next install pip:
 
-python get-pip.py
+   python get-pip.py
 
 Verify Installation
 
 To test whether the installation was successful, type the following command:
 
-python -m pip help
+    python -m pip help
 
-Add PIP to **Path**, 
+Add PIP to **Path**,
 
 `	`You can use this website: https://phoenixnap.com/kb/install-pip-windows
-
-
 
 **# Setup Instructions**
 
 Clone the repository to your local machine:
 
-$ git clone <https://github.com/SimaRa84/bankForm.git>
+    $ git clone <https://github.com/SimaRa84/bankForm.git>
 
 In terminal window, create directory
 
 install Django using PIP inside a virtual environment.
 
-pipenv install Django
+    pipenv install Django
 
 Use the path of the virtual environment and add it to python interpreter
 
-Activate the virtual environment: 
+Activate the virtual environment:
 
-pipenv shell
+    pipenv shell
 
 Then use Django-admin to start a project.
 
-Django-admin startproject store.
+    Django-admin startproject store.
 
 For start the development server:
 
-python manage.py runserver 
-
+    python manage.py runserver

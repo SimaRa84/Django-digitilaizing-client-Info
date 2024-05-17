@@ -6,6 +6,7 @@ __pycache__
 db.sqlite3
 media
 
+local_settings.py
 
 
 # Python # 
@@ -13,11 +14,23 @@ media
 *$py.class 
 
 # Distribution / packaging 
-.Python build/ 
-dist/ 
-downloads/  
-*.manifest 
-*.spec 
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # Installer logs 
 pip-log.txt 
@@ -36,6 +49,7 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+myenv/
 
 # mkdocs documentation 
 /site 
@@ -54,3 +68,12 @@ sftp-config.json
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# virtualenv #
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+venv.bak/
+myvirtualenv/

@@ -1,10 +1,10 @@
 from django import forms
-from .models import Customer, AccountInfo,FinancialInfo
+from .models import Customer, AccountInfo,CustomerDetails
 
 class Customer(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ["gender", "first_name", "last_name","sin_number"]
+        fields = ["gender", "first_name", "last_name","initials","sin_number"]
 
 
 class AccountInfo(forms.ModelForm):
@@ -12,7 +12,7 @@ class AccountInfo(forms.ModelForm):
         model = AccountInfo
         fields = ["type_account", "account_number"]
 
-class FinancialInfo(forms.ModelForm):
+class CustomerDetails(forms.ModelForm):
     
     class Meta:
         FIRSTAMOUNT ="A"
@@ -57,7 +57,7 @@ class FinancialInfo(forms.ModelForm):
         ]  
         
        
-        model = FinancialInfo
+        model = CustomerDetails
         fields = '__all__'
         widgets = {
             'gross':forms.Select(choices=ACCOUNTAMOUNT),

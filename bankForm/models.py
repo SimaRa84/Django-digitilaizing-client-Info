@@ -14,8 +14,12 @@ class Customer(models.Model):
     gender= models.CharField( choices=GENDER, max_length=50)  
     last_name = models.CharField(max_length=255)
     first_name = models.CharField(max_length=255)
-    sin_number = models.CharField(max_length=255)    
+    sin_number = models.CharField(max_length=255)  
+    initials = models.CharField(max_length=255)  
 
+
+def __str__(self):
+        return f"{self.name} {self.last_name}"
 
 class AccountInfo(models.Model):
 
@@ -28,10 +32,17 @@ class AccountInfo(models.Model):
         (TYPE_REG, "REGISTERED"),
         (TYPE_TFSA, "TFSA"),
     ]
+    customer = models.ForeignKey(Customer, related_name='accounts', on_delete=models.CASCADE)
+
     type_account= models.CharField( choices=TYPE_ACCOUNT, default=TYPE_ACCOUNT,max_length=50)  
     account_number = models.CharField(max_length=255)
 
-class FinancialInfo(models.Model):
+def __str__(self):
+        return self.account_number
+
+class CustomerDetails(models.Model):
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    
     FIRSTAMOUNT ="A"
     SECONDAMOUNT ="B"
     THIRDAMOUNT ="C"
@@ -50,7 +61,6 @@ class FinancialInfo(models.Model):
     liquid_assets= models.CharField(max_length=255 )    
     fixed_assets= models.CharField( max_length=255)   
     net_worth= models.CharField(max_length=255)   
-
 
     LEVELA='L',
     LEVELB='LM'

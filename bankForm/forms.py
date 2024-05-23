@@ -1,19 +1,47 @@
 from django import forms
+from django.forms import modelformset_factory
+
 from .models import Customer, AccountInfo,CustomerDetails
 
-class Customer(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ["gender", "first_name", "last_name","initials","sin_number"]
 
 
-class AccountInfo(forms.ModelForm):
+class AccountInfoForm(forms.ModelForm):    
+    
     class Meta:
+        TYPE_INVEST = 'I'
+        TYPE_REG = 'R'
+        TYPE_TFSA = 'T'
+
+        TYPE_ACCOUNT = [
+            ("",'select one'),
+            (TYPE_INVEST, "INVESTMENT"),
+            (TYPE_REG, "REGISTERED"),
+            (TYPE_TFSA, "TFSA")
+        ]
+
         model = AccountInfo
         fields = ["type_account", "account_number"]
+        widgets = {'type_account':forms.Select(choices=TYPE_ACCOUNT)}
 
-class CustomerDetails(forms.ModelForm):
+
+AccountInfoFormSet = modelformset_factory(
+    AccountInfo,
+    form=AccountInfoForm,
+    extra=1,  # Number of extra forms to display
+)
+
+class CustomerDetailsForm(forms.ModelForm):
     
+    # def __init__(self,*args,**kwargs):
+    #     self.customer_id = kwargs.pop('customer_id')
+    #     super(CustomerDetailsForm,self).__init__(*args,**kwargs)
+    #     self.fields['customer'].widget = forms.TextInput(attrs={'size':self.customer_id})
+
+    # customer = forms.CharField()
     class Meta:
         FIRSTAMOUNT ="A"
         SECONDAMOUNT ="B"
@@ -28,7 +56,7 @@ class CustomerDetails(forms.ModelForm):
             (FORTHAMOUNT, "$100,000-$149,999"),
             (FIFTHAMOUNT, "$150,000+")
         ]
-        LEVELA='L',
+        LEVELA='L'
         LEVELB='LM'
         LEVELC='M'
         LEVELD='MH'
@@ -70,14 +98,15 @@ class CustomerDetails(forms.ModelForm):
             'time_horizon':forms.Select(choices=TIMEHORIZON)              
             }
         labels = {
-        'type_account': '(Check one)',
-        'gender': 'Gender)',
+        # 'type_account': '(Check one)',
+        # 'gender': 'Gender)',
         'gross': 'a) Gross annual income from all sources',
+        'net_worth': 'd) Estimated net worth :(d= b+c)',
         'liquid_assets': 'b) Estimated net liquid assets: ',
-        'fixed_assets': 'd) Estimated net worth: ',
+        'fixed_assets': 'c) Estimated net fixed assets: ',
         'applicant_invest_knowledge':"e) Applicant/Annutant's investment knowledge: ",
-        'coApplicant_investment_knowledge':"e) Co-Applicant's investment knowledge: ",
-        'risk_tolerance':'g) Risk Tolerance: ',
+        'coApplicant_investment_knowledge':"f) Co-Applicant's investment knowledge: ",
+        'risk_tolerance':'h) Risk Tolerance: ',
         'time_horizon' : 'g) timeHorizon: ',
         'liquidity':'Liquidity',
         'safety':'Safety',
@@ -85,8 +114,6 @@ class CustomerDetails(forms.ModelForm):
         'long_term_growth':'Long term Growth',
         'short_term_growth':'Short term Growth',
         'speculation':'Speculative',
-        'inflation_hedging':'Inflation Hedging',
-
+        'inflation_hedging':'Inflation Hedging'
     }
        
-        

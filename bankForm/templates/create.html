@@ -1,117 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+  <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Form</title>
-    <head>
-      <meta charset="utf-8" />
-      <link
+    <title>My Form</title>   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
         integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
         crossorigin="anonymous"
       />
+      <style>
+        .form-inline {
+          display: flex;
+          /* align-items: center; */
+          margin-bottom: 10px;
+        }
+        .form-inline label {
+          margin-right: 10px;
+          display: block;
+        }
+        .form-inline input[type="text"],
+        .form-inline input[type="radio"],
+        .form-inline select {
+          margin-right: 10px;
+          flex: 1;
+          width: 50%;
+        }
+        .form-inline button {
+          margin-left: auto;
+        }
+        .form-check-inline {
+          display: inline-flex;
+        }
+        .form-field {
+          margin-bottom: 10px;
+        }
+        .form-field label {
+          display: inline-block;
+          width: 100px;
+        }
+        .form-field input,
+        .form-field select {
+          width: 50%;
+        }
+        .listInvestment input {
+          width: 100%;
+        }
+        .form-control {
+          width: 100%;
+        }
+      </style>
     </head>
-    <style>
-      .form-inline {
-        display: flex;
-        /* align-items: center; */
-        margin-bottom: 10px;
-      }
-      .form-inline label {
-        margin-right: 10px;
-        display: block;
-      }
-      .form-inline input[type="text"],
-      .form-inline input[type="radio"],
-      .form-inline select {
-        margin-right: 10px;
-        flex: 1;
-        width: 50%;
-      }
-      .form-inline button {
-        margin-left: auto;
-      }
-      .form-check-inline {
-        display: inline-flex;
-      }
-      .form-field {
-        margin-bottom: 10px;
-      }
-      .form-field label {
-        display: inline-block;
-        width: 100px;
-      }
-      .form-field input,
-      .form-field select {
-        width: 50%;
-      }
-      .listInvestment input {
-        width: 100%;
-      }
-      .form-control {
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <hr style="width: 100%; border-top: 10px solid #000000" />
-      <h4>1. APPLICANT/ANNUITANT INFORMATION</h4>
-      <br/>
-      <form action= '' method="POST">
+<body>
+  <div class="container">
+    <hr style="width: 100%; border-top: 10px solid #000000" />
+    <h4>1. APPLICANT/ANNUITANT INFORMATION</h4>
+    <br/>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% with customer=context.0 accountInfo=context.1 financialInfo=context.2 %}                  
 
         <div class="fisrSection">
+
+        <div class="row">
+
+          <div class="col-lg-3 form-inline">
+            <label>{{ customer.gender.label }}</label>
+            {{ customer.gender }}
+          </div>
+          <div class="col-lg-4 form-inline">
+            <label>{{ customer.last_name.label }}</label>
+            {{ customer.last_name }}
+          </div>
+          <div class="col-lg-4 form-inline">
+            <label>{{ customer.first_name.label }}</label>
+            {{ customer.first_name }}
+          </div>
           
-          <div class="row">
-
-            <div class="col-lg-3 form-inline">
-              <label>{{ customer.gender.label }}</label>
-              {{ customer.gender }}
-            </div>
-            <div class="col-lg-4 form-inline">
-              <label>{{ customer.last_name.label }}</label>
-              {{ customer.last_name }}
-            </div>
-            <div class="col-lg-4 form-inline">
-              <label>{{ customer.first_name.label }}</label>
-              {{ customer.first_name }}
-            </div>
-            
-          </div>
-          <div class="row">
-            <div class="col-lg-3 form-inline">
-              <label>{{ customer.initials.label }}</label>
-              {{ customer.initials }}
-            </div>
-            <div class="col-lg-4 form-inline">
-              <label>{{ customer.sin_number.label }}</label>
-              {{ customer.sin_number }}
-            </div>
-          </div>
-          <hr/>
-          <h5> ACCOUNT INFO:</h5>
-          <br/>
-
-          <div class="row">
-            <div class="col-lg-4 form-inline">
-              <label style="font-weight: bold">{{ accountInfo.type_account.label }}</label>
-              {{ accountInfo.type_account }}
-            </div>
-            <div class="col-lg-6 form-inline">
-              <label>{{ accountInfo.account_number.label }}</label>
-              {{ accountInfo.account_number }}
-            </div>
-            
-          </div>
-         
-
-
         </div>
-         <div class="secondSection">
+        <div class="row">
+          <div class="col-lg-3 form-inline">
+            <label>{{ customer.initials.label }}</label>
+            {{ customer.initials }}
+          </div>
+          <div class="col-lg-4 form-inline">
+            <label>{{ customer.sin_number.label }}</label>
+            {{ customer.sin_number }}
+          </div>
+        </div>
+        <hr/>
+        <h5> ACCOUNT INFO:</h5>
+        <br/>
+
+        <!-- <div id="accounts-forms">
+            {{ account_info_formset.management_form }}
+            {% for form in account_info_formset %}
+                <div class="account-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" id="add-account">Add Account</button> -->
+
+        
+        <div class="row">
+          <div id="accounts-forms" class="col-lg-12 form-inline">
+              {{ account_info_formset.management_form }}
+              {% for form in account_info_formset %}
+                  <div class="account-form row col-lg-12 form-inline">
+                      <div class="col-lg-4 form-group">
+                          <label style="font-weight: bold">{{ form.type_account.label }}</label>
+                          {{ form.type_account }}
+                      </div>
+                      <div class="col-lg-6 form-group">
+                          <label>{{ form.account_number.label }}</label>
+                          {{ form.account_number }}            
+                      </div>
+                     
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <div class="col-lg-12">
+              <button type="button" id="add-account" class="btn btn-primary">Add Account</button>
+          </div>
+
+
+        <div class="secondSection">
           <div class="row">
             <hr style="width: 100%; border-top: 10px solid #000000" />
             <h4>2. FINANCIAL INFORMATION AND INVESTMENT EXPERIENCE</h4>
@@ -179,10 +195,7 @@
               <label class="col-lg-6">{{ financialInfo.risk_tolerance.label }}</label>
               {{ financialInfo.risk_tolerance }}
             </div>
-            <div class="col-lg-4 form-inline">
-              <label class="col-lg-6">{{ financialInfo.net_worth.label }}</label>
-              {{ financialInfo.net_worth }}
-            </div>
+            
             <div class="col-lg-4 form-inline">
               <label class="col-lg-6">{{ financialInfo.time_horizon.label }}</label>
               {{ financialInfo.time_horizon }}
@@ -244,9 +257,9 @@
                 </div>
                 
                
-          {% if form.errors %}
+          {% if financialInfo.errors %}
           <ul>
-            {% for field in form %} {% for error in field.errors %}
+            {% for field in financialInfo %} {% for error in field.errors %}
             <li>{{ error }}</li>
             {% endfor %} {% endfor %}
           </ul>
@@ -255,9 +268,52 @@
             <button class="btn btn-info"  type="submit">Submit</button>
           </div>
         </div>
-        {% endwith %}
-      </form>
-    </div>
-  </body>
-  
+    </form>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+          var form_idx = "{{ account_info_formset.total_form_count }}";
+          $("#add-account").click(function () {
+              var newForm = $("#empty-form-template").html().replace(/__prefix__/g, form_idx);
+              $("#accounts-forms").append(newForm);
+              form_idx++;
+              // Update the TOTAL_FORMS value
+              $("#id_accounts-TOTAL_FORMS").val(form_idx);
+          });
+          $(document).on('click', '.remove-account', function () {
+                $(this).closest('.account-form').remove();
+                updateTotalForms();
+            });
+            function updateTotalForms() {
+                var totalForms = $('#account-forms .account-form').length;
+                $('#id_accounts-TOTAL_FORMS').val(totalForms);
+            }
+
+      });
+  </script>
+
+    <!-- <template id="empty-form">
+        <div class="account-form">
+            {{ account_info_formset.empty_form.as_p }}
+        </div>
+    </template> -->
+    <template id="empty-form-template">
+      <div class="account-form row col-lg-12 form-inline">
+          <div class="col-lg-4 form-group">
+              <label style="font-weight: bold">Type Account</label>
+              <select name="accounts-__prefix__-type_account" class="form-control">
+                  <option value="" selected>Select one</option>
+                  <option value="I">INVESTMENT</option>
+                  <option value="R">REGISTERED</option>
+                  <option value="T">TFSA</option>
+              </select>
+          </div>
+          <div class="col-lg-6 form-group">
+              <label>Account Number</label>
+              <input type="text" name="accounts-__prefix__-account_number" class="form-control" maxlength="255">
+          </div>
+          <button type="button" class="remove-account">Remove</button>
+      </div>
+  </template>
+</body>
 </html>
